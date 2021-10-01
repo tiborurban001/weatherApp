@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherApp</title>
+    <link rel="stylesheet" href="/public/style.css" />
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container mt-3">
+      <!-- Időjárás szerkezet -->
+      <div class="card">
+        <div class="card-body">
+          <!-- "head" -->
+          <h5 class="card-title" name="varos"><%= weatherData.name %></h5>
+          <h8><%= weatherData.sys.country %></h8>
+          <div class="container">
+            <p class="text-muted" name="lat"><%= weatherData.coord.lat %></p>
+            <p class="text-muted" name="lon"><%= weatherData.coord.lon %></p>
+          </div>
+          <!-- icon -->
+          <img
+            class="float-right"
+            src="http://openweathermap.org/img/wn/<%= weatherData.weather[0].icon %>@2x.png"
+            alt="icon"
+          />
+          <!-- Hőmérséklet -->
+          <p class="display-1" name="homerseklet">
+            <%= weatherData.main.temp%><sup>o</sup>C
+          </p>
+          <!-- Hőérzet -->
+          <span class="text-muted"
+            >Hőérzet: <%= weatherData.main.feels_like %><sup>o</sup>C</span
+          >
+          <!-- Az adatok mérésének időpontja -->
+          <h5 class="font-weight-bold">Mérés időpontja:</h5>
+          <h6 name="meresideje"><%= new Date(weatherData.dt*1000) %></h6>
+
+          <!-- Másodlagos adatok -->
+          <div class="container mt-3 text-center">
+            <div class="row font-weight-bold border-top border-info">
+              <div class="col border-right border-info">
+                <i class="fas fa-paper-plane"></i> Szélirány
+              </div>
+              <div class="col"></div>
+              <div name="szelirany" class="col">
+                <%= weatherData.wind.deg %>°
+              </div>
+            </div>
+            <div class="row font-weight-bold">
+              <div class="col border-right border-info">
+                <i class="fas fa-wind"></i> Szélsebesség
+              </div>
+              <div class="col"></div>
+              <div name="szelsebesseg" class="col">
+                <%= weatherData.wind.speed %>m/s
+              </div>
+            </div>
+            <div class="row font-weight-bold">
+              <div class="col border-right border-info">
+                <i class="fas fa-spinner"></i> Légnyomás
+              </div>
+              <div name="legnyomashPa" class="col">
+                <%= weatherData.main.pressure %>(hPa)
+              </div>
+              <div name="legnyomashgmm" class="col">
+                <%= weatherData.main.pressure * 0.75 %>(hgmm)
+              </div>
+            </div>
+            <div class="row font-weight-bold">
+              <div class="col border-right border-info">
+                <i class="fas fa-water"></i> Páratartalom
+              </div>
+              <div class="col"></div>
+              <div name="paratartalom" class="col">
+                <%= weatherData.main.humidity %>%
+              </div>
+            </div>
+            <div class="row font-weight-bold">
+              <div class="col border-right border-info">
+                <i class="fas fa-eye"></i> Látási-viszonyok
+              </div>
+              <div class="col"></div>
+              <div class="col"><%= weatherData.visibility/1000 %>km</div>
+            </div>
+            <div class="row font-weight-bold">
+              <div class="col border-right border-info">
+                <i class="fas fa-cloud"></i> Felhőzet
+              </div>
+              <div class="col"></div>
+              <div name="felhozet" class="col">
+                <%= weatherData.clouds.all %>%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Másik város gomb(to /) -->
+      <div class="text-center">
+        <a href="/" class="btn btn-primary mx-auto btn-lg btn-block"
+          >Másik Település</a
+        >
+      </div>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/ad862d8e11.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
